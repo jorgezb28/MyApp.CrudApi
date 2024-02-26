@@ -1,0 +1,22 @@
+{
+  "MembershipPlans": [
+    {
+      "Id": 1,
+      "Name": "Basic Plan",
+      "Description": "Our Basic plan offers essential gym access with cardio and strength equipment. Ideal for those seeking a budget-friendly fitness option.",
+      "Price": 19.99
+    },
+    {
+      "Id": 2,
+      "Name": "Premium Plan",
+      "Description": "Elevate your fitness with our Premium plan. Enjoy full gym access, unlimited group classes, and premium amenities like saunas and relaxation areas.",
+      "Price": 49.99
+    },
+    {
+      "Id": 3,
+      "Name": "Elite Plan",
+      "Description": "Experience ultimate luxury and convenience with our Elite plan. Enjoy all the benefits of the Premium plan plus exclusive perks such as priority equipment access and complimentary refreshments.",
+      "Price": 99.99
+    }
+  ]
+}

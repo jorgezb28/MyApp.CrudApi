@@ -1,0 +1,15 @@
+[
+  {
+    "Id": 1,
+    "Name": "test",
+    "PhoneNumber": "string",
+    "Email": "string",
+    "JoinDate": "2024-02-26T18:50:49.399Z",
+    "MembershipPlan": {
+      "Id": 0,
+      "Name": "string",
+      "Description": "string",
+      "Price": 0.0
+    }
+  }
+]
