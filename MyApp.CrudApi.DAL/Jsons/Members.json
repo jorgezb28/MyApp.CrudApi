@@ -1,15 +1,28 @@
 [
   {
     "Id": 1,
-    "Name": "test",
+    "Name": "John Doe",
+    "PhoneNumber": "999-999",
+    "Email": "john@doe.com",
+    "JoinDate": "2024-02-26T18:50:49.399Z",
+    "MembershipPlan": {
+      "Id": 1,
+      "Name": "Normal",
+      "Description": "Our Basic plan offers essential gym access with cardio and strength equipment. Ideal for those seeking a budget-friendly fitness option.",
+      "Price": 19.99
+    }
+  },
+  {
+    "Id": 2,
+    "Name": "Test",
     "PhoneNumber": "string",
     "Email": "string",
-    "JoinDate": "2024-02-26T18:50:49.399Z",
+    "JoinDate": "2024-02-26T21:25:37.582Z",
     "MembershipPlan": {
       "Id": 0,
       "Name": "string",
       "Description": "string",
-      "Price": 0.0
+      "Price": 19.0
     }
   }
 ]

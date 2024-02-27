@@ -10,4 +10,8 @@
     <ProjectReference Include="..\MyApp.CrudApi.Domain\MyApp.CrudApi.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
 </Project>

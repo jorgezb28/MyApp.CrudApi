@@ -1,51 +1,61 @@
 ﻿using MyApp.CrudApi.Domain.Models;
 using MyApp.CrudApi.Domain.IRepository;
 using MyApp.CrudApi.Services.IServices;
+using AutoMapper;
+using MyApp.CrudApi.Domain.DTOs;
+using AutoMapper.Execution;
 
 namespace MyApp.CrudApi.Services.Services
 {
     public class MemberServices : IMemberServices
     {
         private readonly IMembersRepository _membersRepository;
+        private readonly IMapper _mapper;
 
-        public MemberServices(IMembersRepository membersRepository)
+        public MemberServices(IMembersRepository membersRepository, IMapper mapper)
         {
             _membersRepository = membersRepository;
+            _mapper = mapper;
         }
 
 
-        public List<MemberModel> GetAll()
+        public List<MemberDto> GetAll()
         {
             var members = _membersRepository.GetAll();
-            return members;
+            var membersDto = _mapper.Map<List<MemberDto>>(members);
+            return membersDto;
         }
 
-        public MemberModel GetById(int id)
+        public MemberDto GetById(int id)
         {
             if(id <= 0) throw new ArgumentNullException("id");
 
             var member = _membersRepository.GetById(id);
-            return member;
+            var memberDto = _mapper.Map<MemberDto>(member);
+            return memberDto;
         }
 
-        public void Insert(MemberModel member)
+        public void Insert(MemberDto memberDto)
         {
-            if (member is null) throw new ArgumentNullException("member");
+            if (memberDto is null) throw new ArgumentNullException("member");
 
+            var member = _mapper.Map<MemberModel>(memberDto);
             _membersRepository.Insert(member);
         }
 
-        public void Update(MemberModel member)
+        public void Update(MemberDto memberDto)
         {
-            if (member is null) throw new ArgumentNullException("member");
+            if (memberDto is null) throw new ArgumentNullException("member");
 
+            var member = _mapper.Map<MemberModel>(memberDto);
             _membersRepository.Update(member);
         }
 
-        public void Delete(MemberModel member)
+        public void Delete(MemberDto memberDto)
         {
-            if (member is null) throw new ArgumentNullException("member");
+            if (memberDto is null) throw new ArgumentNullException("member");
 
+            var member = _mapper.Map<MemberModel>(memberDto);
             _membersRepository.Delete(member);
         }
     }

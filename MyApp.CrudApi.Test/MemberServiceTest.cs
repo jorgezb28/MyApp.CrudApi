@@ -1,26 +1,31 @@
 using AutoFixture;
+using AutoMapper;
 using FluentAssertions;
-using FluentAssertions.Equivalency;
 using Moq;
+using MyApp.CrudApi.Domain.DTOs;
 using MyApp.CrudApi.Domain.IRepository;
 using MyApp.CrudApi.Domain.Models;
+using MyApp.CrudApi.Services.Mapping;
 using MyApp.CrudApi.Services.Services;
-using Newtonsoft.Json.Linq;
-using System;
 
 namespace MyApp.CrudApi.Test
 {
-    public class MembersServiceTest
+    public class MemberServiceTest
     {
         private readonly MemberServices _memberService;
         private readonly Mock<IMembersRepository> _membersRepositoryMock;
+        private readonly IMapper _mapper;
         private readonly Fixture autoFixture;
 
-        public MembersServiceTest()
+        public MemberServiceTest()
         {
             _membersRepositoryMock = new Mock<IMembersRepository>();
+            _mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MapperProfile());
+            }).CreateMapper();
 
-            _memberService = new MemberServices(_membersRepositoryMock.Object);
+            _memberService = new MemberServices(_membersRepositoryMock.Object,_mapper);
             autoFixture = new Fixture();
         }
 
@@ -42,7 +47,7 @@ namespace MyApp.CrudApi.Test
         }
 
         [Fact]
-        public void GetByIdl_ShouldThrowException_WhenIdIsNotVaid()
+        public void GetByIdl_ShouldThrowException_WhenIdIsNotValid()
         {
             // Arrange
             var id = 0;
@@ -56,7 +61,7 @@ namespace MyApp.CrudApi.Test
         }
 
         [Fact]
-        public void GetByIdl_ShouldReturnMember_WhenIdIsValid()
+        public void GetById_ShouldReturnMember_WhenIdIsValid()
         {
             // Arrange
             var id = 2;
@@ -70,5 +75,35 @@ namespace MyApp.CrudApi.Test
             // assert
             result.Should().BeEquivalentTo(member);
         }
+
+        [Fact]
+        public void Insertl_ShouldThrowException_WhenIMemberdIsNotValid()
+        {
+            // Arrange
+           
+
+            // act
+            Action action = () => _memberService.Insert(null);
+
+            // assert
+            action.Should().Throw<ArgumentNullException>();
+
+        }
+
+        [Fact]
+        public void Insert_ShouldInsertMember()
+        {
+            // Arrange
+            var memberDto = autoFixture.Create<MemberDto>();
+            _membersRepositoryMock.Setup(x => x.Insert(It.IsAny<MemberModel>()));
+
+            // act
+            _memberService.Insert(memberDto);
+
+            // assert
+            _membersRepositoryMock.Verify(x => x.Insert(It.IsAny<MemberModel>()), Times.Once);
+        }
+
+        // TODO: Add missing tests
     }
 }

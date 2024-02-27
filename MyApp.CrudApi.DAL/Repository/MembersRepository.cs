@@ -7,15 +7,15 @@ namespace MyApp.CrudApi.DAL.Repository
 {
     public class MembersRepository : IMembersRepository
     {
-        private readonly JsonSerializerSettings _options
-        = new() { NullValueHandling = NullValueHandling.Ignore };
+        private readonly JsonSerializerSettings _options = new() { NullValueHandling = NullValueHandling.Ignore };
         private readonly IConfiguration _configuration;
         private readonly string _membersDataPath;
 
         public MembersRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            var basePath = Environment.CurrentDirectory;
+            var workingDirectory = Directory.GetCurrentDirectory();
+            var basePath = Directory.GetParent(workingDirectory).FullName;
             _membersDataPath = basePath + _configuration["MembersData"];
         }
 
@@ -69,6 +69,7 @@ namespace MyApp.CrudApi.DAL.Repository
 
             if (memberList is not null)
             {
+                member.Id = memberList.Count + 1;
                 memberList.Add(member);
                 var jsonString = JsonConvert.SerializeObject(memberList, Formatting.Indented, _options);
                 File.WriteAllText(_membersDataPath, jsonString);

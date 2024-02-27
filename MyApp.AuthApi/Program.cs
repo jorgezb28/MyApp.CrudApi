@@ -13,13 +13,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAutoMapper(typeof(MapperProfile)); 
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
-builder.Services.AddScoped<IMemberServices, MemberServices>();
 builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
-
-builder.Services.AddScoped<IMembersRepository, MembersRepository>();
 builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+
 
 
 var app = builder.Build();

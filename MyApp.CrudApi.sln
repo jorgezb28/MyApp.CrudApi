@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.CrudApi.DAL", "MyApp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.CrudApi.Services", "MyApp.CrudApi.Services\MyApp.CrudApi.Services.csproj", "{3A306E07-654E-4DF2-9473-EA738D6287ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.CrudApi.Test", "MyApp.CrudApi.Test\MyApp.CrudApi.Test.csproj", "{BBA8806C-BDF2-406C-B96C-D359AFF358CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.CrudApi.Services.Test", "MyApp.CrudApi.Test\MyApp.CrudApi.Services.Test.csproj", "{BBA8806C-BDF2-406C-B96C-D359AFF358CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MyApp.CrudApi.Domain.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MyApp.CrudApi.Domain.DTOs;
 using MyApp.CrudApi.Services.IServices;
 
 namespace MyApp.CrudApi.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MembersController : ControllerBase
@@ -15,10 +18,10 @@ namespace MyApp.CrudApi.Controllers
             _memberServices = memberServices;
         }
 
-        [HttpPost("api/members/add-members")]
+        [HttpPost("add-members")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddMember(MemberModel member)
+        public async Task<IActionResult> AddMember(MemberDto member)
         {
             if (member is not null)
             {
@@ -29,7 +32,7 @@ namespace MyApp.CrudApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("api/members/get-all")]
+        [HttpGet("get-all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll()
@@ -45,11 +48,15 @@ namespace MyApp.CrudApi.Controllers
         }
 
 
-        [HttpGet("api/members/get-by-id/{id}")]
+        [HttpGet("get-by-id/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetById(int id)
         {
+
+            if (id <= 0) return BadRequest();
+
             var member = _memberServices.GetById(id);
 
             if (member is not null)
@@ -60,10 +67,11 @@ namespace MyApp.CrudApi.Controllers
             return NotFound();
         }
 
-        [HttpPut("api/members/edit-member")]
+        [HttpPut("edit-member")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> EditMember(MemberModel member)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EditMember(MemberDto member)
         {
             if (member is not null)
             {
@@ -74,10 +82,11 @@ namespace MyApp.CrudApi.Controllers
             return NotFound();
         }
 
-        [HttpDelete("api/members/delete")]
+        [HttpDelete("delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(MemberModel member)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Delete(MemberDto member)
         {
             if (member is not null)
             {
